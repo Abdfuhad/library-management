@@ -1,0 +1,25 @@
+{% extends "dashboard.html" %}
+
+{% block title %}Return a Book{% endblock title %}
+{% block content %}
+<div class="container mx-auto flex justify-center">
+  <div class="w-16 bg-color10 rounded-l-lg"></div>
+  <div class="flex flex-col bg-color30 mx-0 px-8 py-4 rounded-r-lg w-2/5 justify-self-start">
+      <h1 class="text-4xl">Return a book</h1>
+      <br>
+      <form method="POST">
+          {% csrf_token %}
+          <p>{{returnbookform.student.label}}</p>
+          {{returnbookform.student}}
+          <p>{{returnbookform.book.label}}</p>
+          {{returnbookform.book}}
+          <p>{{returnbookform.issued_date.label}}</p>
+          {{returnbookform.issued_date}}
+          <p>{{returnbookform.returned_date.label}}</p>
+          {{returnbookform.returned_date}}
+          <br>
+          <input class="mx-auto inline-flex bg-color10 text-color60 border-0 py-2 px-6 mt-8 focus:outline-none hover:italic rounded text-lg self-center"  type="submit" value="Submit">
+      </form>
+  </div>
+</div>
+{% endblock content %}

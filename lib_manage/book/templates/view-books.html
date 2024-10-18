@@ -1,0 +1,39 @@
+{% extends "dashboard.html" %}
+
+{% block title %}View books{% endblock title %}
+{% block content %}
+<h1 class="px-8 pb-4 text-4xl">Books Catalogue</h1>
+<div class="ml-8 mt-8 w-3/5 grid grid-cols-4 grid-rows-3 gap-4 justify-items-stretch">
+    {% if user.groups.all.0.name == 'librarian' %}
+    <a href="{% url 'addbook' %}" class="h-12 place-self-stretch inline-flex justify-center items-center text-color60 bg-color10 border-0 py-2 px-6 focus:outline-none hover:italic rounded text-xl">Add new Book</a>
+    <a href="{% url 'viewauthor' %}" class="h-12 place-self-stretch inline-flex justify-center items-center text-color60 bg-color10 border-0 py-2 px-6 focus:outline-none hover:italic rounded text-xl">Add new Author</a>
+    <a href="{% url 'viewpublisher' %}" class="h-12 place-self-stretch inline-flex justify-center items-center text-color60 bg-color10 border-0 py-2 px-6 focus:outline-none hover:italic rounded text-xl">Add new Publisher</a>
+    <a href="{% url 'viewcategory' %}" class="h-12 place-self-stretch inline-flex justify-center items-center text-color60 bg-color10 border-0 py-2 px-6 focus:outline-none hover:italic rounded text-xl">Add new Category</a>
+    {% endif %}
+    <form action="{% url "viewbook" %}" method="get" class="flex items-center text-2xl col-span-4 w-full">
+        <label for="search" class="text-color10 font-semibold">Search:</label>
+        <input class="bg-color30 w-full text-xl p-2 ml-4 rounded focus:outline-4 outline-color10" placeholder="search..." type="search" name="search" id="search">
+        <input class="bg-color10 text-color60 text-xl p-2 px-8 ml-4 rounded focus:outline-4 outline-color10" placeholder="search..." type="submit" value="Search">
+    </form>
+</div>
+<table class="text-xl mx-4 my-8 pt-8 w-full">
+    <thead>
+        <th class="px-4 text-left">Title</th>
+        <th class="px-4 text-center">Lang</th>
+        <th class="px-4 text-center">Added</th>
+    </thead>
+    <tbody class="text-2xl ">
+        {% for book in allbooks %}
+            <tr class="border-b-2 h-16 hover:bg-color30 transition ease-in-out delay-100 hover:h-16">
+                <td class="px-4">{{book.title | truncatewords:6}}</td>
+                <td class="text-center">{{book.language}}</td>
+                <td class="text-center">{{book.added_date}}</td>
+                <td class=" text-xl text-center"><a class=" underline text-color10 hover:italic" href="{% url "detailviewbook" book.id %}">view more...</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
+
+
+

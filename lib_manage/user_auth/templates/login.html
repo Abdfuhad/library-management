@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}login{% endblock title %}
+{% block navcontent %}
+<a href="/">home</a>
+{% endblock navcontent %}
+{% block content %}
+    <div class="container mx-auto flex justify-center pt-1 sm:pt-8 my-24">
+        <div class="flex flex-col bg-color30 mx-auto px-8 py-4 w-96 rounded">
+            <h1 class="text-4xl">Login</h1>
+            <br>
+            <form method="POST" autocomplete="off">
+                {% csrf_token %}
+                <p class="text-color10">{{loginform.non_field_errors}}</p>
+                {% for field in loginform %}
+                    <label for="{{ field.label }}" class="text-xl">{{ field.label }}<span class="text-color10">*</span>:
+                    <div class="col-md-6 pb-2">
+                        {{ field }}
+                    </div>
+                {% endfor %}
+            
+                <input class="mx-auto inline-flex bg-color10 text-color60 border-0 py-2 px-6 focus:outline-none hover:italic rounded text-lg self-center" href="{% url 'login' %}" type="submit" value="Login">
+            </form>
+            <p class="text-lg">forgot password ? <a href="{% url 'password-reset' %}" class="text-color10 text-xl hover:italic">reset password</a></p>
+            <p class="text-lg">don't have an account ? <a href="{% url 'register' %}" class="text-color10 text-xl hover:italic">register</a></p>
+        </div>
+    </div>
+{% endblock content %}
